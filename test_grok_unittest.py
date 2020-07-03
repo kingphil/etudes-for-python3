@@ -35,23 +35,19 @@ class TestGrokUnitTest(unittest.TestCase):
         self.assertTrue(self.thingy.echo('echo') == 'echo', "assertTrue (object attribute)")
         self.assertFalse(self.thingy.echo('echo') != 'echo', 'assertFalse')
 
-        obj = PekObj()
-
         with self.assertRaises(HoleyMoleyException):
-            obj.echo("quit")
+            self.thingy.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
     def test_assertRaises_alternate_syntax(self):
-        obj = PekObj()
-
         ## alternate syntax for assertRaise
         ## self.assertRaises(excClass, callable, *args)
-        self.assertRaises(HoleyMoleyException, obj.echo, "quit")
+        self.assertRaises(HoleyMoleyException, self.thingy.echo, "quit")
         self.assertRaises(HoleyMoleyException, echo, "quit")
 
         ## in case I don't remember the syntax (above is better...)
         try:
-            obj.echo('pek')
+            self.thingy.echo('pek')
             self.fail("explicit failure (but won't get here")
         except(HoleyMoleyException, Exception) as e:
             pass
