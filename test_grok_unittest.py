@@ -84,6 +84,13 @@ class TestGrokUnitTest_TestSuite(unittest.TestCase):
         suite.addTest(TestGrokUnitTest('test_basic_functionality'))
         runner.run(suite)
 
+class TestGrokUnitTest_subTest(unittest.TestCase):
+    def test_subTest(self):
+        characters = ['Jyn', 'Galen']
+        for character in characters:
+            with self.subTest(label=character):
+                self.assertTrue(character in characters, "subTest test")
+
 def legacy_test():
     assert 2 + 2 == 5
     qwerty()
@@ -132,3 +139,6 @@ def echo(arg):
 ## note: does not find .py files with dashes!?
 ## not a valid identifier for a package or module
 ## https://docs.python.org/3/reference/lexical_analysis.html#identifiers
+
+### TODO
+## skip in relation to setUpClass, tearDownClass, setUpModule, tearDownModule
