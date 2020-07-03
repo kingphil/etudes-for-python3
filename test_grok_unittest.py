@@ -1,11 +1,6 @@
 ## python3 -m unittest [-v]
-## note: does not find .py files with dashes!?
-## not a valid identifier for a package or module
-## https://docs.python.org/3/reference/lexical_analysis.html#identifiers
-
 ## python3 -m unittest test_grok_unittest[.py] [-v]
-## python3 -m unittest test_grok_unittest.TestGrokUnitTest [-v]
-## python3 -m unittest test_grok_unittest.TestGrokUnitTest.test_basic_functionality [-v]
+## python3 -m unittest -k <pattern>
 
 import unittest
 
@@ -53,3 +48,13 @@ class TestGrokUnitTest(unittest.TestCase):
             pass
 
             
+### NOTES
+## less common syntax invocation
+## python3 -m unittest test_grok_unittest.TestGrokUnitTest [-v]
+## python3 -m unittest test_grok_unittest.TestGrokUnitTest.test_basic_functionality [-v]
+
+## note: does not find .py files with dashes!?
+## not a valid identifier for a package or module
+## https://docs.python.org/3/reference/lexical_analysis.html#identifiers
+
+### TODO
