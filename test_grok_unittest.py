@@ -22,15 +22,18 @@ class TestGrokUnitTest(unittest.TestCase):
             self.thingy.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
+class TestGrokUnitTests_trivia(unittest.TestCase):
     def test_assertRaises_alternate_syntax(self):
+        thingy = PekObj()
+
         ## alternate syntax for assertRaise
         ## self.assertRaises(excClass, callable, *args)
-        self.assertRaises(HoleyMoleyException, self.thingy.echo, "quit")
+        self.assertRaises(HoleyMoleyException, thingy.echo, "quit")
         self.assertRaises(HoleyMoleyException, echo, "quit")
 
         ## in case I don't remember the syntax (above is better...)
         try:
-            self.thingy.echo('pek')
+            thingy.echo('pek')
             self.fail("explicit failure (but won't get here")
         except(HoleyMoleyException, Exception) as e:
             pass
