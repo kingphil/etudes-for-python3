@@ -4,18 +4,6 @@
 
 import unittest
 
-class HoleyMoleyException(Exception):
-    pass
-
-class PekObj:
-    def echo(self, arg):
-        return echo(arg)
-
-def echo(arg):
-    if arg == "quit":
-        raise HoleyMoleyException
-    return arg
-
 ## assertEqual, assertNotEqual, assertTrue, assertFalse
 ## assertRaises, fail
 class TestGrokUnitTest(unittest.TestCase):
@@ -47,7 +35,18 @@ class TestGrokUnitTest(unittest.TestCase):
         except(HoleyMoleyException, Exception) as e:
             pass
 
-            
+class HoleyMoleyException(Exception):
+    pass
+
+class PekObj:
+    def echo(self, arg):
+        return echo(arg)
+
+def echo(arg):
+    if arg == "quit":
+        raise HoleyMoleyException
+    return arg
+
 ### NOTES
 ## less common syntax invocation
 ## python3 -m unittest test_grok_unittest.TestGrokUnitTest [-v]
