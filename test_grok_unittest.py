@@ -25,6 +25,9 @@ class TestGrokUnitTest(unittest.TestCase):
             self.thingy.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
+def pek_skip_decorator():
+    return unittest.skip('')
+
 class TestGrokUnitTest_skip_various_ways(unittest.TestCase):
     @unittest.skip('')
     def test_skip(self):
@@ -33,6 +36,7 @@ class TestGrokUnitTest_skip_various_ways(unittest.TestCase):
     ## also: skipUnless
     @unittest.skipIf(sys.platform == 'linux', 'skip if on Linux')
     def test_skipIf(self):
+        print('sanity')
         self.fail('')
 
     def test_skip_explicitly(self):
@@ -42,6 +46,11 @@ class TestGrokUnitTest_skip_various_ways(unittest.TestCase):
     def test_skip_explicitly(self):
         raise unittest.SkipTest('')
         self.fail('')
+
+    @pek_skip_decorator()
+    def test_skip_decorator(self):
+        self.fail('')
+
 
 class TestGrokUnitTest_skips_from_setUp(unittest.TestCase):
     def setUp(self):
@@ -62,6 +71,11 @@ class TestGrokUnitTest_skips_from_setUp_via_raise(unittest.TestCase):
 class TestGrokUnitTest_skip_class(unittest.TestCase):
     def test_skip(self):
         self.fail('')
+
+class TestGrokUnitTest_expected(unittest.TestCase):
+    @unittest.expectedFailure
+    def test_fail(self):
+        self.assertTrue(False, "intentional fail")
 
 class TestGrokUnitTest_TestSuite(unittest.TestCase):
     def test_basic_functionality(self):
