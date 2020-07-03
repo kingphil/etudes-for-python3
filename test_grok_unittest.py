@@ -24,6 +24,30 @@ class TestGrokUnitTest(unittest.TestCase):
             self.thingy.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
+import sys
+class TestGrokUnitTest_skip_various_ways(unittest.TestCase):
+    @unittest.skip('')
+    def test_skip(self):
+        self.fail('')
+
+    ## also: skipUnless
+    @unittest.skipIf(sys.platform == 'linux', 'skip if on Linux')
+    def test_skipIf(self):
+        self.fail('')
+
+    def test_skip_explicitly(self):
+        self.skipTest('')
+        self.fail('')
+
+    def test_skip_explicitly(self):
+        raise unittest.SkipTest('')
+        self.fail('')
+
+@unittest.skip('')
+class TestGrokUnitTest_skip_class(unittest.TestCase):
+    def test_skip(self):
+        self.fail('')
+
 class TestGrokUnitTest_TestSuite(unittest.TestCase):
     def test_basic_functionality(self):
         runner = unittest.TextTestRunner()
