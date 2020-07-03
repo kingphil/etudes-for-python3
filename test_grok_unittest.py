@@ -3,11 +3,11 @@
 ## python3 -m unittest -k <pattern>
 ## python3 -m unittest discover -s <directory>
 
-from unittest import TestCase
+import unittest
 
 ## assertEqual, assertNotEqual, assertTrue, assertFalse
 ## assertRaises, fail
-class TestGrokUnitTest(TestCase):
+class TestGrokUnitTest(unittest.TestCase):
     def setUp(self):
         self.thingy = PekObj()
 
@@ -24,7 +24,14 @@ class TestGrokUnitTest(TestCase):
             self.thingy.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
-class TestGrokUnitTests_trivia(TestCase):
+class TestGrokUnitTest_TestSuite(unittest.TestCase):
+    def test_basic_functionality(self):
+        runner = unittest.TextTestRunner()
+        suite = unittest.TestSuite()
+        suite.addTest(TestGrokUnitTest('test_basic_functionality'))
+        runner.run(suite)
+
+class TestGrokUnitTests_trivia(unittest.TestCase):
     def test_assertRaises_alternate_syntax(self):
         thingy = PekObj()
 
