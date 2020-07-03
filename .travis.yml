@@ -1,0 +1,19 @@
+dist: focal
+language: python
+python:
+- '3.8'
+
+script:
+- python3 -m unittest -v
+
+git:
+  depth: false
+  quiet: true
+branches:
+  only:
+  - master
+  - /^90\./
+notifications:
+  email:
+    on_success: always
+    on_failure: always
