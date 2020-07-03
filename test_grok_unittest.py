@@ -41,6 +41,9 @@ class TestGrokUnitTest(unittest.TestCase):
             obj.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
+    def test_assertRaises_alternate_syntax(self):
+        obj = PekObj()
+
         ## alternate syntax for assertRaise
         ## self.assertRaises(excClass, callable, *args)
         self.assertRaises(HoleyMoleyException, obj.echo, "quit")
@@ -53,3 +56,4 @@ class TestGrokUnitTest(unittest.TestCase):
         except(HoleyMoleyException, Exception) as e:
             pass
 
+            
