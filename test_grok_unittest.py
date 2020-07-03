@@ -4,6 +4,7 @@
 ## python3 -m unittest discover -s <directory>
 
 import unittest
+import sys
 
 ## assertEqual, assertNotEqual, assertTrue, assertFalse
 ## assertRaises, fail
@@ -24,7 +25,6 @@ class TestGrokUnitTest(unittest.TestCase):
             self.thingy.echo("quit")
             self.fail('should have raised HoleyMoleyException')
 
-import sys
 class TestGrokUnitTest_skip_various_ways(unittest.TestCase):
     @unittest.skip('')
     def test_skip(self):
@@ -43,6 +43,21 @@ class TestGrokUnitTest_skip_various_ways(unittest.TestCase):
         raise unittest.SkipTest('')
         self.fail('')
 
+class TestGrokUnitTest_skips_from_setUp(unittest.TestCase):
+    def setUp(self):
+        self.skipTest('')
+
+    def test_fails(self):
+        self.fail('')
+
+class TestGrokUnitTest_skips_from_setUp_via_raise(unittest.TestCase):
+    def setUp(self):
+        raise unittest.SkipTest('')
+        self.fail('')
+
+    def test_fails(self):
+        self.fail('')
+
 @unittest.skip('')
 class TestGrokUnitTest_skip_class(unittest.TestCase):
     def test_skip(self):
@@ -54,6 +69,18 @@ class TestGrokUnitTest_TestSuite(unittest.TestCase):
         suite = unittest.TestSuite()
         suite.addTest(TestGrokUnitTest('test_basic_functionality'))
         runner.run(suite)
+
+def legacy_test():
+    assert 2 + 2 == 5
+    qwerty()
+
+## "Re-using old test code": needs a clearer example of this
+class TestGrokUnitTests_legacy(unittest.TestCase):
+    def test_basic_functionality(self):
+        legacy_test_obj = unittest.FunctionTestCase(legacy_test)
+        ## unittest.result.TestResult
+        test_result = legacy_test_obj.run()
+        self.assertFalse(test_result.wasSuccessful(), "legacy test (clunky)")
 
 class TestGrokUnitTests_trivia(unittest.TestCase):
     def test_assertRaises_alternate_syntax(self):
