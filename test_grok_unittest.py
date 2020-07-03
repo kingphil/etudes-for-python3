@@ -16,6 +16,7 @@ class TestGrokUnitTest(TestCase):
                 
     def test_basic_functionality(self):
         self.assertEqual(self.thingy.echo('echo'), 'echo', "assertEqual")
+        self.assertNotEqual(self.thingy.echo('echo'), 'schplecho', "assertEqual")
         self.assertTrue(self.thingy.echo('echo') == 'echo', "assertTrue (object attribute)")
         self.assertFalse(self.thingy.echo('echo') != 'echo', 'assertFalse')
 
