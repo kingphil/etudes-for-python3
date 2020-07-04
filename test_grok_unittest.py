@@ -3,6 +3,9 @@
 ## python3 -m unittest -k <pattern>
 ## python3 -m unittest discover -s <directory>
 
+## elpy: C-c C-c, then:
+## unittest.main()
+
 import unittest
 import sys
 
