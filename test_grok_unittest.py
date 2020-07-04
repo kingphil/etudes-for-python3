@@ -14,7 +14,7 @@ class TestGrokUnitTest(unittest.TestCase):
 
     def tearDown(self):
         pass
-                
+
     def test_basic_functionality(self):
         self.assertEqual(self.thingy.echo('echo'), 'echo', "assertEqual")
         self.assertNotEqual(self.thingy.echo('echo'), 'schplecho', "assertEqual")
