@@ -4,6 +4,7 @@ python:
 - '3.8'
 
 script:
+#- python3 -m unittest -v
 - python3 -m unittest -v test_constructs.py
 
 git:
@@ -12,7 +13,7 @@ git:
 branches:
   only:
   - master
-  - /^90\./
+  - /^2020-Q3\./
 notifications:
   email:
     on_success: always
