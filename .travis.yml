@@ -4,8 +4,7 @@ python:
 - '3.8'
 
 script:
-#- python3 -m unittest -v
-- python3 -m unittest -v test_constructs.py
+- python3 -m unittest -v
 
 git:
   depth: false
