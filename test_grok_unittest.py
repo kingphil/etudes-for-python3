@@ -2,18 +2,23 @@
 ## python3 -m unittest test_grok_unittest[.py] [-v]
 ## python3 -m unittest -k <pattern>
 ## python3 -m unittest discover -s <directory>
+## note: the file and individual tests must be named '^test'
 
 import unittest
 import sys
 
 ## assertEqual, assertNotEqual, assertTrue, assertFalse
 ## assertRaises, fail
-class TestGrokUnitTest(unittest.TestCase):
+## note: the TestCase does not need to be named '^Test' or have "test" in its name
+class GrokUnit(unittest.TestCase):
     def setUp(self):
         self.thingy = PekObj()
 
     def tearDown(self):
         pass
+
+    def _test_name_must_begin_with_test(self):
+        self.fail('')
 
     def test_basic_functionality(self):
         self.assertEqual(self.thingy.echo('echo'), 'echo', "assertEqual")
@@ -81,7 +86,7 @@ class TestGrokUnitTest_TestSuite(unittest.TestCase):
     def test_basic_functionality(self):
         runner = unittest.TextTestRunner()
         suite = unittest.TestSuite()
-        suite.addTest(TestGrokUnitTest('test_basic_functionality'))
+        suite.addTest(GrokUnit('test_basic_functionality'))
         runner.run(suite)
 
 class TestGrokUnitTest_subTest(unittest.TestCase):
@@ -133,8 +138,8 @@ def echo(arg):
 
 ### NOTES
 ## less common syntax invocation
-## python3 -m unittest test_grok_unittest.TestGrokUnitTest [-v]
-## python3 -m unittest test_grok_unittest.TestGrokUnitTest.test_basic_functionality [-v]
+## python3 -m unittest test_grok_unittest.GrokUnit [-v]
+## python3 -m unittest test_grok_unittest.GrokUnit.test_basic_functionality [-v]
 
 ## note: does not find .py files with dashes!?
 ## not a valid identifier for a package or module
