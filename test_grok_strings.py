@@ -1,4 +1,5 @@
 import unittest
+import sys
 
 # note: page numbers refer to 'Python Pocket Reference, 5th edition'
 
@@ -50,3 +51,24 @@ class GrokStrings(unittest.TestCase):
         self.assertEqual('%+.*f' % (4, -1/3.0), '-0.3333')
         self.assertEqual('%(x)s' % dict(x='winston!'), 'winston!')
         self.assertEqual('%(x)04d' % dict(x=21), '0021')
+
+    # p 30-33
+    def test_string_formating_method(self):
+        self.assertEqual('{} {} {:.2f}'.format(
+            42, 'spam', 1/3.0), '42 spam 0.33')
+        self.assertEqual('{d} {s}'.format(d=42, s='spam'), '42 spam')
+        # w/dict unpacking
+        self.assertEqual('{d} {s}'.format(
+            **dict(d=42, s='spam')), '42 spam')
+        # pg 30: the '<6s' is align (p 33)
+        self.assertEqual('[{:<6s}]'.format('spam'), '[spam  ]')
+
+        self.assertEqual('{0.platform} {1[x]} {2[0]}'.format(
+            sys, dict(x='spam'), [42]), 'linux spam 42')
+
+        # w/commas!
+        self.assertEqual('{0:,d}'.format(2**32), '4,294,967,296')
+        # * fill, ^ center align, + sign
+        self.assertEqual('|{0:*^+16d}|'.format(2**16), '|*****+65536*****|')
+        # width and precision
+        self.assertEqual('|{:12.2f}|'.format(2**16/3), '|    21845.33|')
