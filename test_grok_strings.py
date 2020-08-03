@@ -1,5 +1,6 @@
 import unittest
 import sys
+import string
 
 # note: page numbers refer to 'Python Pocket Reference, 5th edition'
 
@@ -72,3 +73,22 @@ class GrokStrings(unittest.TestCase):
         self.assertEqual('|{0:*^+16d}|'.format(2**16), '|*****+65536*****|')
         # width and precision
         self.assertEqual('|{:12.2f}|'.format(2**16/3), '|    21845.33|')
+
+    # p 34
+    def test_string_template_string_substitution(self):
+        self.assertEqual('%(page)i: %(book)s' %
+                         {'page': 2, 'book': 'PR5E'}, '2: PR5E')
+        self.assertEqual('%(page)i: %(book)s' %
+                         dict(page=2, book='PR5E'), '2: PR5E')
+
+    # p 34
+    def test_string_Template_class(self):
+        template = string.Template('$page: $book')
+        self.assertEqual(template.substitute(
+            {'page': 2, 'book': 'PR5E'}), '2: PR5E')
+        # Template class substitution w/keyword arguments
+        self.assertEqual(template.substitute(page=2, book='PR5E'), '2: PR5E')
+        self.assertEqual(template.substitute(
+            dict(page=2, book='PR5E')), '2: PR5E')
+        self.assertEqual(template.substitute(
+            {'page': 2, 'book': 'PR5E'}), '2: PR5E')
