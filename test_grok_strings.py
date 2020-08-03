@@ -92,3 +92,82 @@ class GrokStrings(unittest.TestCase):
             dict(page=2, book='PR5E')), '2: PR5E')
         self.assertEqual(template.substitute(
             {'page': 2, 'book': 'PR5E'}), '2: PR5E')
+
+    # p 34-36
+    def test_string_methods(self):
+        # from pprint import pprint as pp
+        self.assertEqual('winston!'.capitalize(), 'Winston!')
+        self.assertEqual('WiNsToN!'.casefold(), 'winston!')
+        self.assertEqual('winston!'.center(10), ' winston! ')
+        # non-overlapping
+        self.assertEqual('babababababa'.count('baba'), 3)
+        # some of these do not take keyword arguments (but probably should)
+        _start = 1
+        self.assertEqual('babababababa'.count('baba', _start), 2)
+        self.assertTrue('baba'.endswith('baba'))
+        self.assertFalse('baba'.endswith('baba', 0, 3))
+        self.assertEqual('\tWinston!\t'.expandtabs(tabsize=1), ' Winston! ')
+        self.assertEqual('babababababa'.find('baba'), 0)
+        self.assertEqual('babababababa'.find('baba', _start), 2)
+        # note: skip format_map; (why are there so many ways to do this?)
+        self.assertEqual('babababababa'.index('baba'), 0)
+        self.assertEqual('babababababa'.index('baba', _start), 2)
+        self.assertFalse('\t'.isalnum())
+        self.assertFalse('4'.isalpha())
+        self.assertTrue('4'.isascii())
+        self.assertFalse('a'.isdecimal())
+        self.assertTrue('_'.isidentifier())
+        self.assertFalse('W'.islower())
+        self.assertFalse('a'.isnumeric())
+        self.assertFalse('\n'.isprintable())
+        self.assertTrue('\t'.isspace())
+        self.assertTrue('Winston!'.istitle())
+        self.assertFalse('WInston!'.istitle())
+        self.assertFalse('winston!'.isupper())
+        _phrase = 'this is a test'
+        self.assertEqual(' '.join(_phrase.split(' ')), _phrase)
+        self.assertEqual('winston'.ljust(10, '!'), 'winston!!!')
+        self.assertEqual('winston'.rjust(10, '!'), '!!!winston')
+        self.assertEqual('WINSTON!'.lower(), 'winston!')
+        self.assertEqual('winston!'.upper(), 'WINSTON!')
+        self.assertEqual('\t \nwinston!'.lstrip(), 'winston!')
+        self.assertEqual('dotwinston!'.lstrip('odt'), 'winston!')
+
+        # skip 'maketrans' and 'translate'
+
+        # 'partition' is so specific; when would I use this?
+        # 'split' seems more generally useful, especially w/maxsplit
+        self.assertEqual('dottie/winston/bb'.partition('/'),
+                         ('dottie', '/', 'winston/bb'))
+        self.assertEqual('bb/dottie/winston'.rpartition('/'),
+                         ('bb/dottie', '/', 'winston'))
+        self.assertEqual('bb/dottie/winston'.rsplit('/', maxsplit=1),
+                         ['bb/dottie', 'winston'])
+
+        self.assertEqual('dollie'.replace('l', 't'), 'dottie')
+        self.assertEqual('babababababa'.rfind('baba'), 8)
+        self.assertEqual('babababababa'.rfind('baba', 0, 8), 4)
+        self.assertEqual('babababababa'.rindex('baba'), 8)
+        self.assertEqual('babababababa'.rindex('baba', 0, 8), 4)
+        # different between 'find' and 'index' (and the '^r' versions are what
+        #   happens when not found!
+        self.assertEqual('babababababa'.rfind('notfound'), -1)
+        with self.assertRaises(ValueError):
+            'babababababa'.rindex('notfound')
+        self.assertEqual('bb/dottie/winston'.rpartition('/'),
+                         ('bb/dottie', '/', 'winston'))
+        self.assertEqual('winston\ndottie\nbb\n'.splitlines(keepends=False),
+                         ['winston', 'dottie', 'bb'])
+        self.assertFalse('dottie/winston'.startswith('winston'))
+        self.assertTrue('dottie/winston'.startswith('winston', 7))
+
+        # note: 'strip' is leading and trailing
+        self.assertEqual('dot!winston!'.strip('!odt'), 'winston')
+        self.assertEqual('dot!winston!'.lstrip('!odt'), 'winston!')
+        self.assertEqual('winston!dot'.rstrip('odt'), 'winston!')
+        self.assertEqual('WiNsToN!'.swapcase(), 'wInStOn!')
+        # another super specific one; when would one use this?
+        self.assertEqual('wInStOn!'.title(), 'Winston!')
+        self.assertEqual('1234'.zfill(6), '001234')
+        self.assertEqual('12345678'.zfill(6),
+                         '12345678', 'zfill does not truncate')
