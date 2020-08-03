@@ -1,17 +1,20 @@
 import unittest
 
+
 class GrokExceptions(unittest.TestCase):
     # pg 163
     def test_specific_exceptions(self):
-        for superclass in [BaseException, Exception, ArithmeticError, ZeroDivisionError]:
+        for superclass in [BaseException, Exception, ArithmeticError,
+                           ZeroDivisionError]:
             with self.assertRaises(superclass):
                 70/0
 
         # todo: GeneratorExit: when is a generator's close() method called?
         # todo: StopIteration: similar to above
-        # skip: FloatingPointError; good example is lacking in cpython test suite, as well
+        # skip: FloatingPointError; good example is lacking in cpython test
+        #   suite, as well
         # skip (impractical here): EOFError (depends on 'input'),
-        #   KeyboardInterrupt, MemoryError, OverflowError, 
+        #   KeyboardInterrupt, MemoryError, OverflowError,
         #   ReferenceError, SystemError, TabError, UnboundLocalError, Unicode*
         _mylist = "this is a test".split()
         with self.assertRaises(AssertionError):
@@ -47,4 +50,3 @@ class GrokExceptions(unittest.TestCase):
         with self.assertRaises(ValueError):
             import os
             os.popen("ls -l /", mode="z")
-
