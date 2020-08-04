@@ -14,8 +14,8 @@ class GrokRe(unittest.TestCase):
         self.assertTrue(re.search('world', 'hello world'))
 
         phrase = 'This is a test of the emergency broadcast system'
-        self.assertEqual(len(re.split(' ', phrase)), 9)
-        split = (re.split(' ', phrase, maxsplit=4))
+        self.assertEqual(len(re.split('\s', phrase)), 9)
+        split = (re.split('\s', phrase, maxsplit=4))
         self.assertEqual(len(split), 5)
         self.assertEqual(split[:4], ['This', 'is', 'a', 'test'])
 
