@@ -1,14 +1,14 @@
 import unittest
 import re
-from pprint import pprint as pp
+
 
 class GrokRe(unittest.TestCase):
     def test_basic_functionality(self):
         self.assertFalse(re.match('Hello', 'hello'))
         self.assertTrue(re.match('Hello', 'hello', re.I))
 
-        # note: I contend that seeing re.match examples w/^ and $ are super duper silly
-        # note: I still do not have clarity on if re.match or re.search is preferred
+        # note: I contend that seeing re.match examples w/^ and $ are silly
+        # note: I still do not know if re.match or re.search is preferred
         self.assertTrue(re.match('^hello$', 'hello'))
         self.assertFalse(re.match('world', 'hello world'))
         self.assertTrue(re.search('world', 'hello world'))
@@ -21,7 +21,8 @@ class GrokRe(unittest.TestCase):
 
         # 're.sub' returns a string
         cindy = re.sub('s', 'th', phrase)
-        self.assertEqual(cindy, 'Thith ith a tetht of the emergency broadcatht thythtem')
+        self.assertEqual(
+            cindy, 'Thith ith a tetht of the emergency broadcatht thythtem')
 
         # non-overlapping
         self.assertEqual(len(re.findall('baba', 'babababa')), 2)
@@ -33,7 +34,8 @@ class GrokRe(unittest.TestCase):
         date = '2020-07-22'
         mobj_date = pobj.match('2020-07-22')
         self.assertTrue(mobj_date)
-        self.assertEqual(mobj_date.groupdict(), {'year':'2020', 'month':'07', 'date':'22'})
+        self.assertEqual(mobj_date.groupdict(), {
+                         'year': '2020', 'month': '07', 'date': '22'})
         self.assertEqual(mobj_date.groups(), (date, '2020', '07', '22'))
 
         pobj_lookahead = re.compile('(?P<name>Isaac (?=Asimov))')
