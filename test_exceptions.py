@@ -22,7 +22,7 @@ class GrokExceptions(unittest.TestCase):
         with self.assertRaises(AttributeError):
             print(self.does_not_exist)
         with self.assertRaises(ImportError):
-            import non.existent.module
+            import non.existent.module  # noqa: F401 (imported but unused)
         with self.assertRaises(IndentationError):
             bad_code = '69\n\t70'
             eval(bad_code)
@@ -32,7 +32,7 @@ class GrokExceptions(unittest.TestCase):
             mymap = dict(enumerate(_mylist))
             print(mymap[4])
         with self.assertRaises(NameError):
-            print(doesntExist)
+            print(doesntExist)  # noqa: F821 (undefined name)
         with self.assertRaises(RuntimeError):
             # see exception_hierarchy.txt in cpython
             raise NotImplementedError
