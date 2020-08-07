@@ -8,7 +8,8 @@ class GrokRe(unittest.TestCase):
         self.assertTrue(re.match('Hello', 'hello', re.I))
 
         # note: I contend that seeing re.match examples w/^ and $ are silly
-        # note: I still do not know if re.match or re.search is preferred
+        # howto-regex: use 'search' if your 'match' starts w/.*;
+        #   seems that ^ and $ would also fit that
         self.assertTrue(re.match('^hello$', 'hello'))
         self.assertFalse(re.match('world', 'hello world'))
         self.assertTrue(re.search('world', 'hello world'))
