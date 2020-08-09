@@ -3,8 +3,14 @@ language: python
 python:
 - '3.8'
 
+install:
+- pip3 install --upgrade pip
+- pip3 install -r dev-requirements.txt
+
 script:
 - python3 -m unittest -v
+- flake8 --version
+- flake8
 
 git:
   depth: false
