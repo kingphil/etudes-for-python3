@@ -1,12 +1,13 @@
 import unittest
 
-# note: the page numbers refer to "Python Pocket Reference, Mark Lutz, 5th edition"
+
+# note: page numbers refer to "Python Pocket Reference, Mark Lutz, 5th edition"
 
 class TestGenerators(unittest.TestCase):
     def test_expression_basic(self):
         # generator expressions: p 51
         # note: ~18 quintillion, for IPv6 fans
-        #   if this were a list comprehension, it would likely consume all memory
+        #   a list comprehension of this size would likely consume all memory
         nums = (x for x in range(2**64))
         for x in range(2**8):
             # throw away the first 256
@@ -30,15 +31,18 @@ class TestGenerators(unittest.TestCase):
         for x in range(2**8):
             next(gen_func)
         # what an odd construct; not certain when I would ever use .send(...)
-        # note: the function as written, x is 255 twice; we distinguish it by subtraction
+        # note: as written, x is 255 twice; we distinguish it by subtraction
         rv = gen_func.send("pek")
         self.assertEqual(rv, 155, "generator function with send")
-        # p 87 (paraphrasing) if next() is called, yield returns None <--- seemingly not correct
+        # p 87 (paraphrasing) if next() is called, yield returns None
+        #   (seemingly not correct)
         rv = next(gen_func)
         self.assertTrue(rv is not None, "generator function with send")
         self.assertEqual(rv, 256, "generator function with send")
 
-## decorators: p 85
+# decorators: p 85
+
+
 def pekorator(f):
     def wrap():
         accum = []
@@ -48,26 +52,31 @@ def pekorator(f):
         return accum
     return wrap
 
+
 @pekorator
 def pekfunc():
     return 'during'
 
-## class decorators: p 96
+# class decorators: p 96
+
+
 def pekclassorator(f):
-    ## note: class decorators return the instance (whereas a normal class
-    ##   __init__ must return None)
+    # note: class decorators return the instance (whereas a normal class
+    # __init__ must return None)
     def wrap_init():
         instance = f()
         instance.accum.append('pek')
         return instance
     return wrap_init
 
+
 @pekclassorator
 class _PekClass():
     def __init__(self):
         self.accum = []
-        ## to be explicit to the comment above
+        # to be explicit to the comment above
         return None
+
 
 class TestDecorators(unittest.TestCase):
     def test_decorator_basic(self):

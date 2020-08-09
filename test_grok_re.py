@@ -15,8 +15,8 @@ class GrokRe(unittest.TestCase):
         self.assertTrue(re.search('world', 'hello world'))
 
         phrase = 'This is a test of the emergency broadcast system'
-        self.assertEqual(len(re.split('\s', phrase)), 9)
-        split = (re.split('\s', phrase, maxsplit=4))
+        self.assertEqual(len(re.split('\s', phrase)), 9)  # noqa: W605
+        split = (re.split('\s', phrase, maxsplit=4))  # noqa: W605
         self.assertEqual(len(split), 5)
         self.assertEqual(split[:4], ['This', 'is', 'a', 'test'])
 
@@ -29,14 +29,15 @@ class GrokRe(unittest.TestCase):
         self.assertEqual(len(re.findall('baba', 'babababa')), 2)
 
         # p 205: mnenomic: pobj is a RE *P*attern object (sheesh...)
-        pobj = re.compile('((?P<year>\d{4})-(?P<month>\d{2})-(?P<date>\d{2}))')
+        _re = '((?P<yr>\d{4})-(?P<mon>\d{2})-(?P<date>\d{2}))'  # noqa: W605
+        pobj = re.compile(_re)
         self.assertFalse(pobj.match('Happy unbirthday!'))
 
         date = '2020-07-22'
         mobj_date = pobj.match('2020-07-22')
         self.assertTrue(mobj_date)
         self.assertEqual(mobj_date.groupdict(), {
-                         'year': '2020', 'month': '07', 'date': '22'})
+                         'yr': '2020', 'mon': '07', 'date': '22'})
         self.assertEqual(mobj_date.groups(), (date, '2020', '07', '22'))
 
         pobj_lookahead = re.compile('(?P<name>Isaac (?=Asimov))')
